@@ -10,7 +10,5 @@ editor_options:
 
 # Analyses
 
-| sample | modality | output                            |
-|--------|----------|-----------------------------------|
-| 982    | codex    | [simple_misty](simple_misty.html) |
-|        |          |                                   |
+Single sample all modalities: [simple_misty](simple_misty.html)
+
