@@ -8,4 +8,9 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+# Analyses
+
+| sample | modality | output                            |
+|--------|----------|-----------------------------------|
+| 982    | codex    | [simple_misty](simple_misty.html) |
+|        |          |                                   |

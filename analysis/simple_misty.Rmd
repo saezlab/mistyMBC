@@ -1,0 +1,70 @@
+---
+title: "simple_misty"
+author: "Jovan Tanevski"
+date: "2021-06-09"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+# Setup
+
+```{r setup, message=FALSE}
+library(reticulate)
+library(mistyR)
+library(future)
+
+sample <- 982
+modality <- "codex"
+
+use_python("/usr/local/bin/python3")
+```
+
+
+# Extract counts and geometry
+
+```{python}
+import anndata
+
+path_template = "data/HTAPP-{0}-SMP-7629/HTAPP-{0}-SMP-7629_{1}_processed.h5ad"
+adata = anndata.read(path_template.format(int(r.sample), r.modality))
+        
+counts = adata.obsm["counts"]
+geom = adata.obs[["x_orig", "y_orig"]]
+markers = adata.uns["counts_var"]
+
+```
+
+# Run misty with standard view composition
+
+```{r run_misty, cache = TRUE}
+plan(multisession, workers = 6)
+
+expr <- as.data.frame(as.matrix(py$counts))
+colnames(expr) <- make.names(py$markers)
+pos <- py$geom
+
+misty.views <- create_initial_view(expr) %>%
+  add_juxtaview(pos) %>%
+  add_paraview(pos, 100)
+
+run_misty(misty.views,
+  results.folder = paste0("output/", sample, "_", modality)
+)
+```
+
+
+# Plot results
+
+```{r}
+misty.results <- collect_results(paste0("output/", sample, "_", modality))
+
+misty.results %>%
+  plot_improvement_stats() %>%
+  plot_view_contributions() %>%
+  plot_interaction_heatmap("intra") %>%
+  plot_interaction_heatmap("juxta.15") %>%
+  plot_interaction_heatmap("para.100") %>%
+  plot_contrast_heatmap("intra", "juxta.15") %>%
+  plot_contrast_heatmap("intra", "para.100")
+```

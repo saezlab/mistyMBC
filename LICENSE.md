@@ -1,12 +1,3 @@
----
-title: "License"
-output:
-  workflowr::wflow_html:
-    toc: false
-editor_options:
-  chunk_output_type: console
----
-
 GNU General Public License
 ==========================
 
