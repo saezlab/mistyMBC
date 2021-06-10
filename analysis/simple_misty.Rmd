@@ -23,6 +23,8 @@ use_python("/usr/local/bin/python3")
 
 # Extract counts and geometry
 
+Requires `python3` and anndata installed (`pip install anndata`).
+
 ```{python}
 import anndata
 
@@ -37,7 +39,7 @@ markers = adata.uns["counts_var"]
 
 # Run misty with standard view composition
 
-```{r run_misty, cache = TRUE}
+```{r run_misty, cache = TRUE, autodep = TRUE}
 plan(multisession, workers = 6)
 
 expr <- as.data.frame(as.matrix(py$counts))
@@ -62,9 +64,9 @@ misty.results <- collect_results(paste0("output/", sample, "_", modality))
 misty.results %>%
   plot_improvement_stats() %>%
   plot_view_contributions() %>%
-  plot_interaction_heatmap("intra") %>%
-  plot_interaction_heatmap("juxta.15") %>%
-  plot_interaction_heatmap("para.100") %>%
-  plot_contrast_heatmap("intra", "juxta.15") %>%
-  plot_contrast_heatmap("intra", "para.100")
+  plot_interaction_heatmap("intra", 2) %>%
+  plot_interaction_heatmap("juxta.15", 2) %>%
+  plot_interaction_heatmap("para.100", 2) %>%
+  plot_contrast_heatmap("intra", "juxta.15", 2) %>%
+  plot_contrast_heatmap("intra", "para.100", 2)
 ```
