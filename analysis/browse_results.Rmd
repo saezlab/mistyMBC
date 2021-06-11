@@ -1,0 +1,47 @@
+---
+title: "browse_results"
+author: "Jovan Tanevski"
+date: "2021-06-10"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+# Setup
+
+Load necessary libraries
+
+```{r}
+library(stringr)
+library(mistyR)
+```
+
+# Output collection
+
+Find the location of the results for all samples
+
+```{r}
+outputs <- str_subset(list.dirs("output"), "processed") %>% 
+  str_subset("failed", negate = TRUE)
+```
+
+Collect the results for all samples, single modality and all replicates
+
+```{r}
+misty.results.modality <- collect_results(str_subset(outputs, "codex"))
+```
+
+
+# Plot basic results
+
+```{r}
+misty.results.modality %>%
+  plot_improvement_stats() %>%
+  plot_view_contributions() %>%
+  plot_interaction_heatmap("intra") %>%
+  plot_interaction_heatmap("juxta.15") %>%
+  plot_interaction_heatmap("para.100") %>%
+  plot_contrast_heatmap("intra", "juxta.15") %>%
+  plot_contrast_heatmap("intra", "para.100")
+```
+
