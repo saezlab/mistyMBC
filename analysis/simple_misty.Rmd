@@ -5,6 +5,8 @@ date: "2021-06-09"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
+params:
+  modality: "codex"
 ---
 
 # Setup
@@ -38,14 +40,14 @@ def read_and_extract(datapath):
 
 # Run misty 
 
-Define standard view composition and run MISTy on all h5ad files that don't contain scRNAseq in their filename.
+Define standard view composition and run MISTy on all h5ad files that contain a modality name in their filename passed to the renderer via a `modality` parameter in the YAML header (default: "codex").
 
 
 ```{r run_misty}
 plan(multisession)
 
-list.files("data", ".h5ad", recursive = TRUE, full.names = TRUE) %>%
-  keep(~ str_detect(.x, "scRNAseq", negate = TRUE)) %>%
+(list.files("data", ".h5ad", recursive = TRUE, full.names = TRUE) %>%
+  keep(~ str_detect(.x, params$modality))) %>%
   walk(function(datapath) {
     data <- py$read_and_extract(datapath)
     expr <- as.data.frame(as.matrix(data[[1]]))
@@ -53,20 +55,26 @@ list.files("data", ".h5ad", recursive = TRUE, full.names = TRUE) %>%
     pos <- data[[2]]
 
     unique(str_extract(rownames(pos), "-\\d$")) %>% walk(function(replicate) {
-      ind <- str_which(rownames(pos), paste0(replicate, "$"))
-      misty.views <- create_initial_view(expr[ind, ]) %>%
-        add_juxtaview(pos[ind, ]) %>%
-        add_paraview(pos[ind, ], 100)
-
-      run_misty(misty.views,
-        results.folder = paste0(
-          str_replace(
-            str_remove(datapath, ".h5ad"),
-            "data", "output"
-          ),
-          replicate
-        )
+      output.folder <- paste0(
+        str_replace(
+          str_remove(datapath, ".h5ad"),
+          "data", "output"
+        ), replicate
       )
+      
+      output.folder.failed <- paste0(output.folder,"_failed")
+      
+      if(!(dir.exists(output.folder) | dir.exists(output.folder.failed))){
+        ind <- str_which(rownames(pos), paste0(replicate, "$"))
+        misty.views <- create_initial_view(expr[ind, ]) %>%
+          add_juxtaview(pos[ind, ]) %>%
+          add_paraview(pos[ind, ], 100)
+  
+        tryCatch(
+          run_misty(misty.views, results.folder = output.folder),
+          error = function(e) file.rename(output.folder, output.folder.failed)
+        )
+      }
     })
   })
 ```

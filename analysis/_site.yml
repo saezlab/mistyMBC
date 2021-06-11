@@ -1,7 +1,7 @@
-name: TNBC_Multi
+name: mistyTNBC
 output_dir: ../docs
 navbar:
-  title: TNBC_Multi
+  title: mistyTNBC
   left:
   - text: Home
     href: index.html
