@@ -1,7 +1,7 @@
 ---
 title: "browse_results"
 author: "Jovan Tanevski"
-date: "2021-06-10"
+date: "`r Sys.Date()`"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
@@ -11,7 +11,7 @@ editor_options:
 
 Load necessary libraries
 
-```{r}
+```{r setup, message=FALSE}
 library(stringr)
 library(mistyR)
 ```
@@ -30,7 +30,7 @@ Collect the results for all samples, single modality and all replicates
 ```{r}
 misty.results.codex <- collect_results(str_subset(outputs, "codex"))
 misty.results.merfish <- collect_results(str_subset(outputs, "merfish"))
-misty.results.merfish <- collect_results(str_subset(outputs, "exsed"))
+# misty.results.exseq <- collect_results(str_subset(outputs, "exseq"))
 ```
 
 # Plot basic results
@@ -65,9 +65,9 @@ plot_basic_misty(misty.results.codex)
 plot_basic_misty(misty.results.merfish)
 ```
 
-## ExSeq
+<!-- ## ExSeq -->
 
-```{r}
-plot_basic_misty(misty.results.exseq)
-```
+<!-- ```{r} -->
+<!-- plot_basic_misty(misty.results.exseq) -->
+<!-- ``` -->
 
