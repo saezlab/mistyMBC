@@ -13,7 +13,11 @@ Load necessary libraries
 
 ```{r setup, message=FALSE}
 library(stringr)
+library(dplyr)
 library(mistyR)
+library(future)
+
+plan(multisession)        
 ```
 
 # Output collection
@@ -35,11 +39,10 @@ misty.results.merfish <- collect_results(str_subset(outputs, "merfish"))
 
 # Plot basic results
 
-Define a basic set of plots
+## CODEX
 
 ```{r}
-plot_basic_misty <- function(misty.results){
-  misty.results %>%
+  misty.results.codex %>%
     plot_improvement_stats() %>%
     plot_view_contributions() %>%
     plot_interaction_heatmap("intra") %>%
@@ -50,24 +53,37 @@ plot_basic_misty <- function(misty.results){
     plot_interaction_communities("intra") %>%
     plot_interaction_communities("juxta.15") %>%
     plot_interaction_communities("para.100")
-}
-```   
-
-## CODEX
-
-```{r}
-plot_basic_misty(misty.results.codex)
 ```
 
 ## MERFISH
 
+Filter only genes with mean gain in variance explained of 0.5 or more to plot the gain and view contributions.
+
 ```{r}
-plot_basic_misty(misty.results.merfish)
+ts <- misty.results.merfish$improvements.stats %>% 
+  filter(measure == "gain.R2", mean > 0.5) %>% pull(target)
+
+temp <- misty.results.merfish
+
+temp$improvements.stats <- misty.results.merfish$improvements.stats %>% filter(target %in% ts)
+temp$contributions.stats <- misty.results.merfish$contributions.stats %>% filter(target %in% ts)
+
+temp %>%
+  plot_improvement_stats() %>%
+  plot_view_contributions()
 ```
 
-<!-- ## ExSeq -->
+Plot contrasts and communities.
 
-<!-- ```{r} -->
-<!-- plot_basic_misty(misty.results.exseq) -->
-<!-- ``` -->
+```{r}
+misty.results.merfish %>% 
+  plot_contrast_heatmap("intra", "juxta.15", 2) %>%  
+  plot_contrast_heatmap("intra", "para.100", 1.4)
+
+misty.results.merfish %>% 
+  plot_interaction_communities("intra", 2) %>%
+  plot_interaction_communities("juxta.15", 2) %>% 
+  plot_interaction_communities("para.100", 1.5)
+  
+```
 
