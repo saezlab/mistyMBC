@@ -10,6 +10,8 @@ editor_options:
 
 # Analyses
 
-Process data for all samples and replicates with mistyR: [simple_misty](simple_misty.html)
+Process CODEX, MERFISH and ExSeq data for all samples and replicates with a standard mistyR pipeline: [simple_misty](simple_misty.html)
+
+Process SlideSeq data for all samples and replicates with a cell communication based mistyR pipeline: [cellcomm_misty](cellcomm_misty.html)
 
 Browse and analyse results: [browse_results](browse_results.html)

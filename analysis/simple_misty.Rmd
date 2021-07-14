@@ -17,6 +17,7 @@ library(purrr)
 library(stringr)
 
 use_python("/usr/local/bin/python3")
+plan(multisession)
 ```
 
 
@@ -38,12 +39,10 @@ def read_and_extract(datapath):
 
 # Run misty 
 
-Define standard view composition and run MISTy on all h5ad files for modalities CODEX , MERFISH and ExSeq.
+Define standard view composition and run MISTy on all h5ad files for modalities CODEX, MERFISH and ExSeq.
 
 
 ```{r run_misty}
-plan(multisession)
-
 (list.files("data", ".h5ad", recursive = TRUE, full.names = TRUE) %>%
   keep(~ str_detect(.x, "(codex|merfish|exseq)_processed"))) %>%
   walk(function(datapath) {

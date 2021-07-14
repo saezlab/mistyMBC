@@ -1,0 +1,123 @@
+---
+title: "cellcomm_misty"
+author: "Jovan Tanevski"
+date: "`r Sys.Date()`"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Setup
+
+```{r setup, message  = FALSE}
+library(reticulate)
+library(mistyR)
+library(future)
+library(dplyr)
+library(purrr)
+library(OmnipathR)
+library(stringr)
+
+use_python("/usr/local/bin/python3")
+plan(multisession)
+```
+
+
+# Link to python to extract celltype information and geometry
+
+Requires `python3` and anndata installed (`pip install anndata`).
+
+```{python}
+import anndata
+
+def read_and_extract(datapath):
+  adata = anndata.read(datapath)
+  ots = adata.obsm["OT"]
+  counts = adata.obsm["counts"]
+  geom = adata.obs[["x_orig", "y_orig"]]
+  markers = adata.uns["counts_var"]
+  return ots, counts, geom, markers
+
+```
+
+# Create ligand-receptor oriented mistyR pipeline
+
+Get ligand and receptor symbols from Omnipath
+
+```{r}
+extract_symbols <- function(op.source) {
+  proteins <- op.source %>%
+    filter(entity_type == "protein") %>%
+    pull(genesymbol)
+  complexes <- op.source %>%
+    filter(entity_type == "complex") %>%
+    pull(genesymbol) %>%
+    str_remove("COMPLEX:") %>%
+    str_split("_") %>%
+    unlist()
+  return(union(proteins, complexes) %>% make.names())
+}
+
+op.ligands <- import_omnipath_intercell(
+  categories = "ligand",
+  secreted = TRUE,
+  consensus_percentile = 80
+)
+
+ligands <- extract_symbols(op.ligands)
+
+op.receptors <- import_omnipath_intercell(
+  categories = "receptor",
+  secreted = FALSE,
+  consensus_percentile = 80
+)
+
+receptors <- extract_symbols(op.receptors)
+```
+
+
+Define and run ligand receptor oriented mistyR pipelines for MBC cells in SlideSeq data. Relate expression of genes annotated as ligands in the neighborhood of each MBC cell to its intracellular receptor expression.
+
+
+```{r}
+# 364 is a tricky sample
+(list.files("data", ".h5ad", recursive = TRUE, full.names = TRUE) %>%
+  keep(~ str_detect(.x, "slide_seq")))[-4] %>%
+  walk(function(datapath) {
+    data <- py$read_and_extract(datapath)
+    mbs <- which(data[[1]][, which(str_detect(colnames(data[[1]]), "MBC"))] >= 0.9)
+    expr <- as.data.frame(as.matrix(data[[2]])) %>% slice(mbs) %>%
+      `colnames<-`(make.names(data[[4]]))
+    pos <- data[[3]] %>% slice(mbs)
+
+    unique(str_extract(rownames(pos), "-\\d$")) %>% walk(function(replicate) {
+      output.folder <- paste0(
+        str_replace(
+          str_remove(datapath, ".h5ad"),
+          "data", "output"
+        ), replicate
+      )
+
+      output.folder.failed <- paste0(output.folder, "_failed")
+
+      if (!(dir.exists(output.folder) | dir.exists(output.folder.failed))) {
+        ind <- str_which(rownames(pos), paste0(replicate, "$"))
+
+        ligand.views <- create_initial_view(expr[ind, ] %>%
+          select(-names(which(apply(., 2, var) == 0))) %>% 
+                 select(any_of(ligands))) %>%
+          add_paraview(pos[ind, ], 100)
+
+        misty.views <- create_initial_view(expr[ind, ] %>% 
+          select(-names(which(apply(., 2, var) == 0))) %>% 
+          select(any_of(receptors))) %>%
+          add_views(list(ligand.views[["paraview.100"]]))
+
+        tryCatch(
+          run_misty(misty.views, results.folder = output.folder),
+          error = function(e) file.rename(output.folder, output.folder.failed)
+        )
+      }
+    })
+  })
+```
