@@ -1,7 +1,7 @@
-name: mistyTNBC
+name: mistyMBC
 output_dir: ../docs
 navbar:
-  title: mistyTNBC
+  title: mistyMBC
   left:
   - text: Home
     href: index.html
