@@ -34,56 +34,114 @@ Collect the results for all samples, single modality and all replicates
 ```{r}
 misty.results.codex <- collect_results(str_subset(outputs, "codex"))
 misty.results.merfish <- collect_results(str_subset(outputs, "merfish"))
-# misty.results.exseq <- collect_results(str_subset(outputs, "exseq"))
+misty.results.ligrcp <- collect_results(str_subset(outputs, "ligrcp"))
+misty.results.ligpath <- collect_results(str_subset(outputs, "ligpath"))
 ```
 
 # Plot basic results
 
 ## CODEX
 
+Filter only genes with mean gain in variance explained of 1 or more to plot the gain and view contributions
 ```{r}
   misty.results.codex %>%
-    plot_improvement_stats() %>%
-    plot_view_contributions() %>%
-    plot_interaction_heatmap("intra") %>%
-    plot_interaction_heatmap("juxta.15") %>%
-    plot_interaction_heatmap("para.100") %>%
-    plot_contrast_heatmap("intra", "juxta.15") %>%
-    plot_contrast_heatmap("intra", "para.100") %>%
-    plot_interaction_communities("intra") %>%
-    plot_interaction_communities("juxta.15") %>%
-    plot_interaction_communities("para.100")
+    plot_improvement_stats(trim = 1) %>%
+    plot_view_contributions(trim = 1)
 ```
+
+Plot interaction heatmaps
+```{r}
+  misty.results.codex %>%
+    plot_interaction_heatmap("intra", 3, clean = TRUE) %>%
+    plot_interaction_heatmap("juxta.15", 2, clean = TRUE) %>%
+    plot_interaction_heatmap("para.100", 2, clean = TRUE)
+```
+
+
+Plot contrasts conservatively
+```{r}
+  misty.results.codex %>%
+    plot_contrast_heatmap("intra", "juxta.15", cutoff = 2) %>%
+    plot_contrast_heatmap("intra", "para.100", cutoff = 2)
+
+```
+
+Plot interaction communities 
+
+```{r}
+misty.results.codex %>%    
+  plot_interaction_communities("intra", 3) %>%
+  plot_interaction_communities("juxta.15", 2) %>%
+  plot_interaction_communities("para.100", 2)
+```
+
 
 ## MERFISH
 
-Filter only genes with mean gain in variance explained of 0.5 or more to plot the gain and view contributions.
+Filter only genes with mean gain in variance explained of 1 or more to plot the gain and view contributions
 
 ```{r}
-ts <- misty.results.merfish$improvements.stats %>% 
-  filter(measure == "gain.R2", mean > 0.5) %>% pull(target)
-
-temp <- misty.results.merfish
-
-temp$improvements.stats <- misty.results.merfish$improvements.stats %>% filter(target %in% ts)
-temp$contributions.stats <- misty.results.merfish$contributions.stats %>% filter(target %in% ts)
-
-temp %>%
-  plot_improvement_stats() %>%
-  plot_view_contributions()
+misty.results.merfish %>%
+  plot_improvement_stats(trim = 1) %>%
+  plot_view_contributions(trim = 1)
 ```
 
-Plot contrasts and communities.
 
+Plot interaction heatmaps
+```{r}
+  misty.results.merfish %>%
+    plot_interaction_heatmap("intra", 5, clean = TRUE) %>%
+    plot_interaction_heatmap("juxta.15", 3, clean = TRUE) %>%
+    plot_interaction_heatmap("para.100", 2, clean = TRUE)
+```
+
+Plot contrasts
 ```{r}
 misty.results.merfish %>% 
   plot_contrast_heatmap("intra", "juxta.15", 2) %>%  
-  plot_contrast_heatmap("intra", "para.100", 1.4)
+  plot_contrast_heatmap("intra", "para.100", 1.5)
+```
 
-misty.results.merfish %>% 
-  plot_interaction_communities("intra", 2) %>%
-  plot_interaction_communities("juxta.15", 2) %>% 
-  plot_interaction_communities("para.100", 1.5)
-  
+
+Plot interaction communities 
+
+```{r}
+misty.results.merfish %>%    
+  plot_interaction_communities("intra", 5) %>%
+  plot_interaction_communities("juxta.15", 3) %>%
+  plot_interaction_communities("para.100", 2)
+```
+
+## SlideSeq
+
+Filter only ligands then pathways with mean gain in variance explained of 1 or more to plot the gain and view contributions
+
+```{r}
+misty.results.ligrcp %>% 
+  plot_improvement_stats(trim = 0.5) %>%
+  plot_view_contributions(trim = 0.5)
+```
+
+```{r}
+misty.results.ligpath %>% 
+  plot_improvement_stats(trim = 1) %>%
+  plot_view_contributions(trim = 1)
+```
+
+Plot interaction heatmaps
+```{r}
+  misty.results.ligrcp %>%
+    plot_interaction_heatmap("intra", 5, clean = TRUE) %>%
+    plot_interaction_heatmap("para.100", 4, clean = TRUE)
+
+misty.results.ligpath %>%
+    plot_interaction_heatmap("intra", 1, clean = TRUE) %>%
+    plot_interaction_heatmap("para.100", 1.5, clean = TRUE)
+```
+
+Plot intrinsic pathway communities
+
+```{r}
+misty.results.ligpath %>% plot_interaction_communities("intra", 1)
 ```
 
