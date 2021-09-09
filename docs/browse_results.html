@@ -11,11 +11,11 @@
 
 <meta name="author" content="Jovan Tanevski" />
 
-<meta name="date" content="2021-07-22" />
+<meta name="date" content="2021-09-09" />
 
 <title>browse_results</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -360,7 +360,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">browse_results</h1>
 <h4 class="author">Jovan Tanevski</h4>
-<h4 class="date">2021-07-22</h4>
+<h4 class="date">2021-09-09</h4>
 
 </div>
 
@@ -385,7 +385,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-07-22
+<strong>Last updated:</strong> 2021-09-09
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -476,16 +476,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsaezlabmistyMBCtree7fcc359a013c64258bf5b80a12ddf7e8b5933d80targetblank7fcc359a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/saezlab/mistyMBC/tree/7fcc359a013c64258bf5b80a12ddf7e8b5933d80" target="_blank">7fcc359</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsaezlabmistyMBCtreedfd39773d3017d7b83d9c620d63173b578a5cacetargetblankdfd3977a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/saezlab/mistyMBC/tree/dfd39773d3017d7b83d9c620d63173b578a5cace" target="_blank">dfd3977</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomsaezlabmistyMBCtree7fcc359a013c64258bf5b80a12ddf7e8b5933d80targetblank7fcc359a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomsaezlabmistyMBCtreedfd39773d3017d7b83d9c620d63173b578a5cacetargetblankdfd3977a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/saezlab/mistyMBC/tree/7fcc359a013c64258bf5b80a12ddf7e8b5933d80" target="_blank">7fcc359</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/saezlab/mistyMBC/tree/dfd39773d3017d7b83d9c620d63173b578a5cace" target="_blank">dfd3977</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -577,6 +577,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/saezlab/mistyMBC/blob/b12449413a7aece0f2453b1c4a00e1cc8de0c3fa/analysis/browse_results.Rmd" target="_blank">b124494</a>
+</td>
+<td>
+Jovan Tanevski
+</td>
+<td>
+2021-09-09
+</td>
+<td>
+update codex,merfish; add slideseq cellcom results
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/saezlab/mistyMBC/e0c19521275d2e563f2a08a5334b2dd4085cb2f3/docs/browse_results.html" target="_blank">e0c1952</a>
+</td>
+<td>
+Jovan Tanevski
+</td>
+<td>
+2021-07-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -754,23 +788,33 @@ Collecting contributions</code></pre>
 Collecting importances</code></pre>
 <pre><code>
 Aggregating</code></pre>
-<pre class="r"><code># misty.results.exseq &lt;- collect_results(str_subset(outputs, &quot;exseq&quot;))</code></pre>
+<pre class="r"><code>misty.results.ligrcp &lt;- collect_results(str_subset(outputs, &quot;ligrcp&quot;))</code></pre>
+<pre><code>
+Collecting improvements</code></pre>
+<pre><code>
+Collecting contributions</code></pre>
+<pre><code>
+Collecting importances</code></pre>
+<pre><code>
+Aggregating</code></pre>
+<pre class="r"><code>misty.results.ligpath &lt;- collect_results(str_subset(outputs, &quot;ligpath&quot;))</code></pre>
+<pre><code>
+Collecting improvements</code></pre>
+<pre><code>
+Collecting contributions</code></pre>
+<pre><code>
+Collecting importances</code></pre>
+<pre><code>
+Aggregating</code></pre>
 </div>
 <div id="plot-basic-results" class="section level1">
 <h1>Plot basic results</h1>
 <div id="codex" class="section level2">
 <h2>CODEX</h2>
+<p>Filter only genes with mean gain in variance explained of 1 or more to plot the gain and view contributions</p>
 <pre class="r"><code>  misty.results.codex %&gt;%
-    plot_improvement_stats() %&gt;%
-    plot_view_contributions() %&gt;%
-    plot_interaction_heatmap(&quot;intra&quot;) %&gt;%
-    plot_interaction_heatmap(&quot;juxta.15&quot;) %&gt;%
-    plot_interaction_heatmap(&quot;para.100&quot;) %&gt;%
-    plot_contrast_heatmap(&quot;intra&quot;, &quot;juxta.15&quot;) %&gt;%
-    plot_contrast_heatmap(&quot;intra&quot;, &quot;para.100&quot;) %&gt;%
-    plot_interaction_communities(&quot;intra&quot;) %&gt;%
-    plot_interaction_communities(&quot;juxta.15&quot;) %&gt;%
-    plot_interaction_communities(&quot;para.100&quot;)</code></pre>
+    plot_improvement_stats(trim = 1) %&gt;%
+    plot_view_contributions(trim = 1)</code></pre>
 <p><img src="figure/browse_results.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
@@ -858,325 +902,11 @@ Jovan Tanevski
 </table>
 </div>
 </div>
-<p><img src="figure/browse_results.Rmd/unnamed-chunk-3-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-3">
-Past versions of unnamed-chunk-3-3.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-3-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/saezlab/mistyMBC/blob/913535e1721f868b2079622b857b0d6d3efeac20/docs/figure/browse_results.Rmd/unnamed-chunk-3-3.png" target="_blank">913535e</a>
-</td>
-<td>
-Jovan Tanevski
-</td>
-<td>
-2021-06-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/browse_results.Rmd/unnamed-chunk-3-4.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-4">
-Past versions of unnamed-chunk-3-4.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-3-4" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/saezlab/mistyMBC/blob/913535e1721f868b2079622b857b0d6d3efeac20/docs/figure/browse_results.Rmd/unnamed-chunk-3-4.png" target="_blank">913535e</a>
-</td>
-<td>
-Jovan Tanevski
-</td>
-<td>
-2021-06-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/browse_results.Rmd/unnamed-chunk-3-5.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-5">
-Past versions of unnamed-chunk-3-5.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-3-5" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/saezlab/mistyMBC/blob/913535e1721f868b2079622b857b0d6d3efeac20/docs/figure/browse_results.Rmd/unnamed-chunk-3-5.png" target="_blank">913535e</a>
-</td>
-<td>
-Jovan Tanevski
-</td>
-<td>
-2021-06-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/browse_results.Rmd/unnamed-chunk-3-6.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-6">
-Past versions of unnamed-chunk-3-6.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-3-6" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/saezlab/mistyMBC/blob/913535e1721f868b2079622b857b0d6d3efeac20/docs/figure/browse_results.Rmd/unnamed-chunk-3-6.png" target="_blank">913535e</a>
-</td>
-<td>
-Jovan Tanevski
-</td>
-<td>
-2021-06-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/browse_results.Rmd/unnamed-chunk-3-7.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-7">
-Past versions of unnamed-chunk-3-7.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-3-7" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/saezlab/mistyMBC/blob/913535e1721f868b2079622b857b0d6d3efeac20/docs/figure/browse_results.Rmd/unnamed-chunk-3-7.png" target="_blank">913535e</a>
-</td>
-<td>
-Jovan Tanevski
-</td>
-<td>
-2021-06-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/browse_results.Rmd/unnamed-chunk-3-8.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-8">
-Past versions of unnamed-chunk-3-8.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-3-8" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/saezlab/mistyMBC/blob/913535e1721f868b2079622b857b0d6d3efeac20/docs/figure/browse_results.Rmd/unnamed-chunk-3-8.png" target="_blank">913535e</a>
-</td>
-<td>
-Jovan Tanevski
-</td>
-<td>
-2021-06-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/browse_results.Rmd/unnamed-chunk-3-9.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-9">
-Past versions of unnamed-chunk-3-9.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-3-9" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/saezlab/mistyMBC/blob/913535e1721f868b2079622b857b0d6d3efeac20/docs/figure/browse_results.Rmd/unnamed-chunk-3-9.png" target="_blank">913535e</a>
-</td>
-<td>
-Jovan Tanevski
-</td>
-<td>
-2021-06-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/browse_results.Rmd/unnamed-chunk-3-10.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-10">
-Past versions of unnamed-chunk-3-10.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-3-10" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/saezlab/mistyMBC/blob/913535e1721f868b2079622b857b0d6d3efeac20/docs/figure/browse_results.Rmd/unnamed-chunk-3-10.png" target="_blank">913535e</a>
-</td>
-<td>
-Jovan Tanevski
-</td>
-<td>
-2021-06-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="merfish" class="section level2">
-<h2>MERFISH</h2>
-<p>Filter only genes with mean gain in variance explained of 0.5 or more to plot the gain and view contributions.</p>
-<pre class="r"><code>ts &lt;- misty.results.merfish$improvements.stats %&gt;% 
-  filter(measure == &quot;gain.R2&quot;, mean &gt; 0.5) %&gt;% pull(target)
-
-temp &lt;- misty.results.merfish
-
-temp$improvements.stats &lt;- misty.results.merfish$improvements.stats %&gt;% filter(target %in% ts)
-temp$contributions.stats &lt;- misty.results.merfish$contributions.stats %&gt;% filter(target %in% ts)
-
-temp %&gt;%
-  plot_improvement_stats() %&gt;%
-  plot_view_contributions()</code></pre>
+<p>Plot interaction heatmaps</p>
+<pre class="r"><code>  misty.results.codex %&gt;%
+    plot_interaction_heatmap(&quot;intra&quot;, 3, clean = TRUE) %&gt;%
+    plot_interaction_heatmap(&quot;juxta.15&quot;, 2, clean = TRUE) %&gt;%
+    plot_interaction_heatmap(&quot;para.100&quot;, 2, clean = TRUE)</code></pre>
 <p><img src="figure/browse_results.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
@@ -1286,10 +1016,59 @@ Jovan Tanevski
 </table>
 </div>
 </div>
-<p>Plot contrasts and communities.</p>
-<pre class="r"><code>misty.results.merfish %&gt;% 
-  plot_contrast_heatmap(&quot;intra&quot;, &quot;juxta.15&quot;, 2) %&gt;%  
-  plot_contrast_heatmap(&quot;intra&quot;, &quot;para.100&quot;, 1.4)</code></pre>
+<p><img src="figure/browse_results.Rmd/unnamed-chunk-4-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-3">
+Past versions of unnamed-chunk-4-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/saezlab/mistyMBC/blob/913535e1721f868b2079622b857b0d6d3efeac20/docs/figure/browse_results.Rmd/unnamed-chunk-4-3.png" target="_blank">913535e</a>
+</td>
+<td>
+Jovan Tanevski
+</td>
+<td>
+2021-06-17
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/saezlab/mistyMBC/blob/e445e6f93bdad25486d21ac8429854dfbcb02c84/docs/figure/browse_results.Rmd/unnamed-chunk-4-3.png" target="_blank">e445e6f</a>
+</td>
+<td>
+Jovan Tanevski
+</td>
+<td>
+2021-06-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Plot contrasts conservatively</p>
+<pre class="r"><code>  misty.results.codex %&gt;%
+    plot_contrast_heatmap(&quot;intra&quot;, &quot;juxta.15&quot;, cutoff = 2) %&gt;%
+    plot_contrast_heatmap(&quot;intra&quot;, &quot;para.100&quot;, cutoff = 2)</code></pre>
 <p><img src="figure/browse_results.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
@@ -1313,6 +1092,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/saezlab/mistyMBC/blob/e0c19521275d2e563f2a08a5334b2dd4085cb2f3/docs/figure/browse_results.Rmd/unnamed-chunk-5-1.png" target="_blank">e0c1952</a>
+</td>
+<td>
+Jovan Tanevski
+</td>
+<td>
+2021-07-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/saezlab/mistyMBC/blob/913535e1721f868b2079622b857b0d6d3efeac20/docs/figure/browse_results.Rmd/unnamed-chunk-5-1.png" target="_blank">913535e</a>
@@ -1364,6 +1154,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/saezlab/mistyMBC/blob/e0c19521275d2e563f2a08a5334b2dd4085cb2f3/docs/figure/browse_results.Rmd/unnamed-chunk-5-2.png" target="_blank">e0c1952</a>
+</td>
+<td>
+Jovan Tanevski
+</td>
+<td>
+2021-07-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/saezlab/mistyMBC/blob/913535e1721f868b2079622b857b0d6d3efeac20/docs/figure/browse_results.Rmd/unnamed-chunk-5-2.png" target="_blank">913535e</a>
 </td>
 <td>
@@ -1388,157 +1189,62 @@ Jovan Tanevski
 </table>
 </div>
 </div>
+<p>Plot interaction communities</p>
+<pre class="r"><code>misty.results.codex %&gt;%    
+  plot_interaction_communities(&quot;intra&quot;, 3) %&gt;%
+  plot_interaction_communities(&quot;juxta.15&quot;, 2) %&gt;%
+  plot_interaction_communities(&quot;para.100&quot;, 2)</code></pre>
+<p><img src="figure/browse_results.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/browse_results.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/browse_results.Rmd/unnamed-chunk-6-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="merfish" class="section level2">
+<h2>MERFISH</h2>
+<p>Filter only genes with mean gain in variance explained of 1 or more to plot the gain and view contributions</p>
+<pre class="r"><code>misty.results.merfish %&gt;%
+  plot_improvement_stats(trim = 1) %&gt;%
+  plot_view_contributions(trim = 1)</code></pre>
+<p><img src="figure/browse_results.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/browse_results.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Plot interaction heatmaps</p>
+<pre class="r"><code>  misty.results.merfish %&gt;%
+    plot_interaction_heatmap(&quot;intra&quot;, 5, clean = TRUE) %&gt;%
+    plot_interaction_heatmap(&quot;juxta.15&quot;, 3, clean = TRUE) %&gt;%
+    plot_interaction_heatmap(&quot;para.100&quot;, 2, clean = TRUE)</code></pre>
+<p><img src="figure/browse_results.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/browse_results.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/browse_results.Rmd/unnamed-chunk-8-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Plot contrasts</p>
 <pre class="r"><code>misty.results.merfish %&gt;% 
-  plot_interaction_communities(&quot;intra&quot;, 2) %&gt;%
-  plot_interaction_communities(&quot;juxta.15&quot;, 2) %&gt;% 
-  plot_interaction_communities(&quot;para.100&quot;, 1.5)</code></pre>
-<p><img src="figure/browse_results.Rmd/unnamed-chunk-5-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-3">
-Past versions of unnamed-chunk-5-3.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/saezlab/mistyMBC/blob/913535e1721f868b2079622b857b0d6d3efeac20/docs/figure/browse_results.Rmd/unnamed-chunk-5-3.png" target="_blank">913535e</a>
-</td>
-<td>
-Jovan Tanevski
-</td>
-<td>
-2021-06-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/saezlab/mistyMBC/blob/1b68c27e6e79d01ac3409239ffa33f970ebc9924/docs/figure/browse_results.Rmd/unnamed-chunk-5-3.png" target="_blank">1b68c27</a>
-</td>
-<td>
-Jovan Tanevski
-</td>
-<td>
-2021-06-15
-</td>
-</tr>
-</tbody>
-</table>
+  plot_contrast_heatmap(&quot;intra&quot;, &quot;juxta.15&quot;, 2) %&gt;%  
+  plot_contrast_heatmap(&quot;intra&quot;, &quot;para.100&quot;, 1.5)</code></pre>
+<p><img src="figure/browse_results.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/browse_results.Rmd/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Plot interaction communities</p>
+<pre class="r"><code>misty.results.merfish %&gt;%    
+  plot_interaction_communities(&quot;intra&quot;, 5) %&gt;%
+  plot_interaction_communities(&quot;juxta.15&quot;, 3) %&gt;%
+  plot_interaction_communities(&quot;para.100&quot;, 2)</code></pre>
+<p><img src="figure/browse_results.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/browse_results.Rmd/unnamed-chunk-10-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/browse_results.Rmd/unnamed-chunk-10-3.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-</div>
-<p><img src="figure/browse_results.Rmd/unnamed-chunk-5-4.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-4">
-Past versions of unnamed-chunk-5-4.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-4" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/saezlab/mistyMBC/blob/913535e1721f868b2079622b857b0d6d3efeac20/docs/figure/browse_results.Rmd/unnamed-chunk-5-4.png" target="_blank">913535e</a>
-</td>
-<td>
-Jovan Tanevski
-</td>
-<td>
-2021-06-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/saezlab/mistyMBC/blob/1b68c27e6e79d01ac3409239ffa33f970ebc9924/docs/figure/browse_results.Rmd/unnamed-chunk-5-4.png" target="_blank">1b68c27</a>
-</td>
-<td>
-Jovan Tanevski
-</td>
-<td>
-2021-06-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/browse_results.Rmd/unnamed-chunk-5-5.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-5">
-Past versions of unnamed-chunk-5-5.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-5" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/saezlab/mistyMBC/blob/913535e1721f868b2079622b857b0d6d3efeac20/docs/figure/browse_results.Rmd/unnamed-chunk-5-5.png" target="_blank">913535e</a>
-</td>
-<td>
-Jovan Tanevski
-</td>
-<td>
-2021-06-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/saezlab/mistyMBC/blob/1b68c27e6e79d01ac3409239ffa33f970ebc9924/docs/figure/browse_results.Rmd/unnamed-chunk-5-5.png" target="_blank">1b68c27</a>
-</td>
-<td>
-Jovan Tanevski
-</td>
-<td>
-2021-06-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<div id="slideseq" class="section level2">
+<h2>SlideSeq</h2>
+<p>Filter only ligands then pathways with mean gain in variance explained of 1 or more to plot the gain and view contributions</p>
+<pre class="r"><code>misty.results.ligrcp %&gt;% 
+  plot_improvement_stats(trim = 0.5) %&gt;%
+  plot_view_contributions(trim = 0.5)</code></pre>
+<pre><code>Warning: Removed 1 rows containing missing values (geom_segment).</code></pre>
+<p><img src="figure/browse_results.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/browse_results.Rmd/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>misty.results.ligpath %&gt;% 
+  plot_improvement_stats(trim = 1) %&gt;%
+  plot_view_contributions(trim = 1)</code></pre>
+<p><img src="figure/browse_results.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/browse_results.Rmd/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Plot interaction heatmaps</p>
+<pre class="r"><code>  misty.results.ligrcp %&gt;%
+    plot_interaction_heatmap(&quot;intra&quot;, 5, clean = TRUE) %&gt;%
+    plot_interaction_heatmap(&quot;para.100&quot;, 4, clean = TRUE)</code></pre>
+<p><img src="figure/browse_results.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/browse_results.Rmd/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>misty.results.ligpath %&gt;%
+    plot_interaction_heatmap(&quot;intra&quot;, 1, clean = TRUE) %&gt;%
+    plot_interaction_heatmap(&quot;para.100&quot;, 1.5, clean = TRUE)</code></pre>
+<p><img src="figure/browse_results.Rmd/unnamed-chunk-13-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/browse_results.Rmd/unnamed-chunk-13-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Plot intrinsic pathway communities</p>
+<pre class="r"><code>misty.results.ligpath %&gt;% plot_interaction_communities(&quot;intra&quot;, 1)</code></pre>
+<p><img src="figure/browse_results.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1547,12 +1253,12 @@ Jovan Tanevski
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.1.0 (2021-05-18)
+<pre><code>R version 4.1.1 (2021-08-10)
 Platform: x86_64-apple-darwin17.0 (64-bit)
 Running under: macOS Big Sur 10.16
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.dylib
+BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib
 LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
 
 locale:
@@ -1562,26 +1268,26 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] future_1.21.0   mistyR_1.1.2    dplyr_1.0.7     stringr_1.4.0  
+[1] future_1.22.1   mistyR_1.1.9    dplyr_1.0.7     stringr_1.4.0  
 [5] workflowr_1.6.2
 
 loaded via a namespace (and not attached):
- [1] tidyselect_1.1.1   xfun_0.24          bslib_0.2.5.1      purrr_0.3.4       
+ [1] tidyselect_1.1.1   xfun_0.25          bslib_0.3.0        purrr_0.3.4       
  [5] listenv_0.8.0      colorspace_2.0-2   vctrs_0.3.8        generics_0.1.0    
- [9] htmltools_0.5.1.1  yaml_2.2.1         utf8_1.2.1         rlang_0.4.11      
-[13] R.oo_1.24.0        jquerylib_0.1.4    later_1.2.0        pillar_1.6.1      
+ [9] htmltools_0.5.2    yaml_2.2.1         utf8_1.2.2         rlang_0.4.11      
+[13] R.oo_1.24.0        jquerylib_0.1.4    later_1.3.0        pillar_1.6.2      
 [17] glue_1.4.2         DBI_1.1.1          R.utils_2.10.1     RColorBrewer_1.1-2
 [21] lifecycle_1.0.0    munsell_0.5.0      gtable_0.3.0       R.methodsS3_1.8.1 
 [25] codetools_0.2-18   evaluate_0.14      labeling_0.4.2     knitr_1.33        
-[29] httpuv_1.6.1       parallel_4.1.0     fansi_0.5.0        highr_0.9         
-[33] furrr_0.2.3        Rcpp_1.0.7         promises_1.2.0.1   scales_1.1.1      
-[37] jsonlite_1.7.2     farver_2.1.0       parallelly_1.27.0  fs_1.5.0          
-[41] ggplot2_3.3.5      digest_0.6.27      stringi_1.7.3      rprojroot_2.0.2   
-[45] grid_4.1.0         tools_4.1.0        magrittr_2.0.1     sass_0.4.0        
-[49] tibble_3.1.2       crayon_1.4.1       whisker_0.4        tidyr_1.1.3       
-[53] pkgconfig_2.0.3    ellipsis_0.3.2     assertthat_0.2.1   rmarkdown_2.9     
-[57] R6_2.5.0           globals_0.14.0     igraph_1.2.6       git2r_0.28.0      
-[61] compiler_4.1.0    </code></pre>
+[29] fastmap_1.1.0      httpuv_1.6.2       parallel_4.1.1     fansi_0.5.0       
+[33] highr_0.9          furrr_0.2.3        Rcpp_1.0.7         scales_1.1.1      
+[37] promises_1.2.0.1   jsonlite_1.7.2     farver_2.1.0       parallelly_1.27.0 
+[41] fs_1.5.0           ggplot2_3.3.5      digest_0.6.27      stringi_1.7.4     
+[45] rprojroot_2.0.2    grid_4.1.1         tools_4.1.1        magrittr_2.0.1    
+[49] sass_0.4.0         tibble_3.1.4       crayon_1.4.1       whisker_0.4       
+[53] tidyr_1.1.3        pkgconfig_2.0.3    ellipsis_0.3.2     assertthat_0.2.1  
+[57] rmarkdown_2.10     R6_2.5.1           globals_0.14.0     igraph_1.2.6      
+[61] git2r_0.28.0       compiler_4.1.1    </code></pre>
 </div>
 </div>
 </div>
