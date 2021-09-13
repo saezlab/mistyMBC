@@ -11,7 +11,7 @@
 
 <meta name="author" content="Jovan Tanevski" />
 
-<meta name="date" content="2021-09-09" />
+<meta name="date" content="2021-09-13" />
 
 <title>browse_results</title>
 
@@ -360,7 +360,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">browse_results</h1>
 <h4 class="author">Jovan Tanevski</h4>
-<h4 class="date">2021-09-09</h4>
+<h4 class="date">2021-09-13</h4>
 
 </div>
 
@@ -385,7 +385,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-09-09
+<strong>Last updated:</strong> 2021-09-13
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -476,16 +476,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsaezlabmistyMBCtree3de951ef4954e4d7eef12dbb8255460bc9ba9c0btargetblank3de951ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/saezlab/mistyMBC/tree/3de951ef4954e4d7eef12dbb8255460bc9ba9c0b" target="_blank">3de951e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsaezlabmistyMBCtreeb562161c65f2c9cef3d9786f3c2955aaaa54c44dtargetblankb562161a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/saezlab/mistyMBC/tree/b562161c65f2c9cef3d9786f3c2955aaaa54c44d" target="_blank">b562161</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomsaezlabmistyMBCtree3de951ef4954e4d7eef12dbb8255460bc9ba9c0btargetblank3de951ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomsaezlabmistyMBCtreeb562161c65f2c9cef3d9786f3c2955aaaa54c44dtargetblankb562161a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/saezlab/mistyMBC/tree/3de951ef4954e4d7eef12dbb8255460bc9ba9c0b" target="_blank">3de951e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/saezlab/mistyMBC/tree/b562161c65f2c9cef3d9786f3c2955aaaa54c44d" target="_blank">b562161</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -577,6 +577,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/saezlab/mistyMBC/blob/b562161c65f2c9cef3d9786f3c2955aaaa54c44d/analysis/browse_results.Rmd" target="_blank">b562161</a>
+</td>
+<td>
+Jovan Tanevski
+</td>
+<td>
+2021-09-13
+</td>
+<td>
+merge codex and merfish results
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/saezlab/mistyMBC/c457348ddd6a5fbd837914b9e11078544b8df0c8/docs/browse_results.html" target="_blank">c457348</a>
+</td>
+<td>
+Jovan Tanevski
+</td>
+<td>
+2021-09-09
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1992,13 +2026,20 @@ Jovan Tanevski
 </div>
 </div>
 </div>
-<div id="slideseq" class="section level2">
-<h2>SlideSeq</h2>
-<p>Filter only ligands then pathways with mean gain in variance explained of 1 or more to plot the gain and view contributions</p>
-<pre class="r"><code>misty.results.ligrcp %&gt;% 
-  plot_improvement_stats(trim = 0.5) %&gt;%
-  plot_view_contributions(trim = 0.5)</code></pre>
-<pre><code>Warning: Removed 1 rows containing missing values (geom_segment).</code></pre>
+<div id="merge-codex-and-merfish-results" class="section level2">
+<h2>Merge CODEX and MERFISH results</h2>
+<p>Filter only genes with mean gain in variance explained of 1 or more to plot the gain and view contributions</p>
+<pre class="r"><code>misty.results.merged &lt;- collect_results(str_subset(outputs, &quot;codex|merfish&quot;))</code></pre>
+<pre><code>
+Collecting improvements</code></pre>
+<pre><code>
+Collecting contributions</code></pre>
+<pre><code>
+Collecting importances</code></pre>
+<pre><code>
+Aggregating</code></pre>
+<pre class="r"><code>misty.results.merged %&gt;% plot_improvement_stats(trim = 1) %&gt;%
+  plot_view_contributions(trim = 1)</code></pre>
 <p><img src="figure/browse_results.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
@@ -2075,9 +2116,11 @@ Jovan Tanevski
 </table>
 </div>
 </div>
-<pre class="r"><code>misty.results.ligpath %&gt;% 
-  plot_improvement_stats(trim = 1) %&gt;%
-  plot_view_contributions(trim = 1)</code></pre>
+<p>Plot interaction heatmaps</p>
+<pre class="r"><code>misty.results.merged %&gt;%
+  plot_interaction_heatmap(&quot;intra&quot;, cutoff = 6, clean = TRUE) %&gt;%
+  plot_interaction_heatmap(&quot;juxta.15&quot;, cutoff = 1.5, clean = TRUE, trim = 1) %&gt;%
+  plot_interaction_heatmap(&quot;para.100&quot;, cutoff = 1, clean = TRUE, trim = 1)</code></pre>
 <p><img src="figure/browse_results.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
@@ -2154,10 +2197,15 @@ Jovan Tanevski
 </table>
 </div>
 </div>
-<p>Plot interaction heatmaps</p>
-<pre class="r"><code>  misty.results.ligrcp %&gt;%
-    plot_interaction_heatmap(&quot;intra&quot;, cutoff = 5, clean = TRUE) %&gt;%
-    plot_interaction_heatmap(&quot;para.100&quot;, cutoff = 2, clean = TRUE, trim = 0.5)</code></pre>
+<p><img src="figure/browse_results.Rmd/unnamed-chunk-12-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="slideseq" class="section level2">
+<h2>SlideSeq</h2>
+<p>Filter only ligands then pathways with mean gain in variance explained of 1 or more to plot the gain and view contributions</p>
+<pre class="r"><code>misty.results.ligrcp %&gt;% 
+  plot_improvement_stats(trim = 0.5) %&gt;%
+  plot_view_contributions(trim = 0.5)</code></pre>
+<pre><code>Warning: Removed 1 rows containing missing values (geom_segment).</code></pre>
 <p><img src="figure/browse_results.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
@@ -2245,98 +2293,9 @@ Jovan Tanevski
 </table>
 </div>
 </div>
-<pre class="r"><code>misty.results.ligpath %&gt;%
-    plot_interaction_heatmap(&quot;intra&quot;, cutoff = 1, clean = TRUE) %&gt;%
-    plot_interaction_heatmap(&quot;para.100&quot;, cutoff = 1.5, clean = TRUE, trim = 1)</code></pre>
-<p><img src="figure/browse_results.Rmd/unnamed-chunk-13-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-3">
-Past versions of unnamed-chunk-13-3.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-13-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/saezlab/mistyMBC/blob/2438eb25f72d7a33d22c04e15ed4423808ac4155/docs/figure/browse_results.Rmd/unnamed-chunk-13-3.png" target="_blank">2438eb2</a>
-</td>
-<td>
-Jovan Tanevski
-</td>
-<td>
-2021-09-09
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/browse_results.Rmd/unnamed-chunk-13-4.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-4">
-Past versions of unnamed-chunk-13-4.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-13-4" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/saezlab/mistyMBC/blob/aa6ca6b971965c34f4be696f3887d928364e3f8e/docs/figure/browse_results.Rmd/unnamed-chunk-13-4.png" target="_blank">aa6ca6b</a>
-</td>
-<td>
-Jovan Tanevski
-</td>
-<td>
-2021-09-09
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/saezlab/mistyMBC/blob/2438eb25f72d7a33d22c04e15ed4423808ac4155/docs/figure/browse_results.Rmd/unnamed-chunk-13-4.png" target="_blank">2438eb2</a>
-</td>
-<td>
-Jovan Tanevski
-</td>
-<td>
-2021-09-09
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Plot intrinsic pathway communities</p>
-<pre class="r"><code>misty.results.ligpath %&gt;% plot_interaction_communities(&quot;intra&quot;, cutoff = 1)</code></pre>
+<pre class="r"><code>misty.results.ligpath %&gt;% 
+  plot_improvement_stats(trim = 1) %&gt;%
+  plot_view_contributions(trim = 1)</code></pre>
 <p><img src="figure/browse_results.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
@@ -2386,6 +2345,19 @@ Jovan Tanevski
 </table>
 </div>
 </div>
+<p><img src="figure/browse_results.Rmd/unnamed-chunk-14-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Plot interaction heatmaps</p>
+<pre class="r"><code>  misty.results.ligrcp %&gt;%
+    plot_interaction_heatmap(&quot;intra&quot;, cutoff = 5, clean = TRUE) %&gt;%
+    plot_interaction_heatmap(&quot;para.100&quot;, cutoff = 2, clean = TRUE, trim = 0.5)</code></pre>
+<p><img src="figure/browse_results.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/browse_results.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>misty.results.ligpath %&gt;%
+    plot_interaction_heatmap(&quot;intra&quot;, cutoff = 1, clean = TRUE) %&gt;%
+    plot_interaction_heatmap(&quot;para.100&quot;, cutoff = 1.5, clean = TRUE, trim = 1)</code></pre>
+<p><img src="figure/browse_results.Rmd/unnamed-chunk-15-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/browse_results.Rmd/unnamed-chunk-15-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Plot intrinsic pathway communities</p>
+<pre class="r"><code>misty.results.ligpath %&gt;% plot_interaction_communities(&quot;intra&quot;, cutoff = 1)</code></pre>
+<p><img src="figure/browse_results.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2419,10 +2391,10 @@ loaded via a namespace (and not attached):
 [13] R.oo_1.24.0        jquerylib_0.1.4    later_1.3.0        pillar_1.6.2      
 [17] glue_1.4.2         DBI_1.1.1          R.utils_2.10.1     RColorBrewer_1.1-2
 [21] lifecycle_1.0.0    munsell_0.5.0      gtable_0.3.0       R.methodsS3_1.8.1 
-[25] codetools_0.2-18   evaluate_0.14      labeling_0.4.2     knitr_1.33        
-[29] fastmap_1.1.0      httpuv_1.6.2       parallel_4.1.1     fansi_0.5.0       
+[25] codetools_0.2-18   evaluate_0.14      labeling_0.4.2     knitr_1.34        
+[29] fastmap_1.1.0      httpuv_1.6.3       parallel_4.1.1     fansi_0.5.0       
 [33] highr_0.9          furrr_0.2.3        Rcpp_1.0.7         scales_1.1.1      
-[37] promises_1.2.0.1   jsonlite_1.7.2     farver_2.1.0       parallelly_1.27.0 
+[37] promises_1.2.0.1   jsonlite_1.7.2     farver_2.1.0       parallelly_1.28.1 
 [41] fs_1.5.0           ggplot2_3.3.5      digest_0.6.27      stringi_1.7.4     
 [45] rprojroot_2.0.2    grid_4.1.1         tools_4.1.1        magrittr_2.0.1    
 [49] sass_0.4.0         tibble_3.1.4       crayon_1.4.1       whisker_0.4       
