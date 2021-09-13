@@ -112,6 +112,26 @@ misty.results.merfish %>%
   plot_interaction_communities("para.100", cutoff = 1.5)
 ```
 
+## Merge CODEX and MERFISH results
+
+Filter only genes with mean gain in variance explained of 1 or more to plot the gain and view contributions
+```{r}
+misty.results.merged <- collect_results(str_subset(outputs, "codex|merfish"))
+
+misty.results.merged %>% plot_improvement_stats(trim = 1) %>%
+  plot_view_contributions(trim = 1)
+```
+
+Plot interaction heatmaps
+```{r}
+misty.results.merged %>%
+  plot_interaction_heatmap("intra", cutoff = 6, clean = TRUE) %>%
+  plot_interaction_heatmap("juxta.15", cutoff = 1.5, clean = TRUE, trim = 1) %>%
+  plot_interaction_heatmap("para.100", cutoff = 1, clean = TRUE, trim = 1)
+```
+
+
+
 ## SlideSeq
 
 Filter only ligands then pathways with mean gain in variance explained of 1 or more to plot the gain and view contributions
