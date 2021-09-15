@@ -1,0 +1,7 @@
+target,imp
+Endothelial.vascular,4.427778413267129
+Fibroblast,4.225132752543644
+MBC,4.543078185306713
+Macrophage,4.501351886680156
+Skeletal.muscle,4.715746982546063
+Smooth.muscle.vascular,4.548278171292306
