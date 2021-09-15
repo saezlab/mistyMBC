@@ -1,0 +1,79 @@
+---
+title: "celltype_misty"
+author: "Jovan Tanevski"
+date: "`r Sys.Date()`"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Setup
+
+```{r setup, message  = FALSE}
+library(reticulate)
+library(mistyR)
+library(future)
+library(dplyr)
+library(purrr)
+library(stringr)
+
+use_python("/usr/local/bin/python3")
+plan(multisession)
+```
+
+
+# Link to python to extract celltype information and geometry
+
+Requires `python3` and anndata installed (`pip install anndata`).
+
+```{python}
+import anndata
+import numpy
+
+def read_and_extract(datapath):
+  adata = anndata.read(datapath)
+  ots = adata.obsm["OT"]
+  geom = adata.obs[["x_orig", "y_orig"]]
+  return ots, geom
+
+```
+
+
+# Create celltype oriented mistyR pipeline
+
+Use SlideSeq data. Bypass modeling of intrinsic view and focus on cell type composition of a neighborhood. Take 100 nearest neighbors with constant weights.
+
+```{r}
+(list.files("data", ".h5ad", recursive = TRUE, full.names = TRUE) %>%
+  keep(~ str_detect(.x, "slide_seq")))[-4] %>%
+  walk(function(datapath) {
+    data <- py$read_and_extract(datapath)
+    ctype <- data[[1]] %>% rename_with(~make.names(., allow_ = FALSE))
+    pos <- data[[2]]
+
+    unique(str_extract(rownames(pos), "-\\d$")) %>% walk(function(replicate) {
+      output.folder <- paste0(
+        str_replace(
+          str_remove(datapath, ".h5ad"),
+          "data", "output"
+        ), 
+        replicate, 
+        "/ctype"
+      )
+
+      output.folder.failed <- paste0(output.folder, "_failed")
+
+      if (!(dir.exists(output.folder) | dir.exists(output.folder.failed))) {
+        ind <- str_which(rownames(pos), paste0(replicate, "$"))
+
+        misty.views.ctype <- create_initial_view(ctype[ind, ]) %>%
+          add_paraview(pos[ind, ], l = 100, family = "constant")
+
+        tryCatch(
+          run_misty(misty.views.ctype, results.folder = output.folder, bypass.intra = TRUE),
+          error = function(e) file.rename(output.folder, output.folder.failed)
+        )
+      }
+    })
+  })
+```
