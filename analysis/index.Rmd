@@ -14,4 +14,6 @@ Process CODEX, MERFISH and ExSeq data for all samples and replicates with a stan
 
 Process SlideSeq data for all samples and replicates with a cell communication based mistyR pipelines: [cellcomm_misty](cellcomm_misty.html)
 
+Process SlideSeq data for all samples and replicates with a celltype based mistyR pipelines: [celltype_misty](celltype_misty.html)
+
 Browse and analyse results: [browse_results](browse_results.html)
