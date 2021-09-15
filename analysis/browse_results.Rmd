@@ -165,3 +165,23 @@ Plot intrinsic pathway communities
 misty.results.ligpath %>% plot_interaction_communities("intra", cutoff = 1)
 ```
 
+### Cell-type based analysis
+
+We are interested in predicting the probability of a cell being of a cell-type of interest, by looking at the distribution of cell types in the neighborhood of 100 cells.
+
+More conservative trimming of above 10% variance explained since the intraview is bypassed.
+```{r}
+misty.results.ctype <- collect_results(str_subset(outputs, "ctype"))
+
+misty.results.ctype %>% plot_improvement_stats(trim = 10)
+```
+
+Plot neighborhood interactions
+
+```{r}
+misty.results.ctype %>% plot_interaction_heatmap("para.100", trim = 10, 
+                                                 cutoff = 0.5)
+
+misty.results.ctype %>% plot_interaction_communities("para.100", cutoff = 1)
+```
+
