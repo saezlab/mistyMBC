@@ -13,6 +13,7 @@ editor_options:
 library(reticulate)
 library(mistyR)
 library(future)
+library(dplyr)
 library(purrr)
 library(stringr)
 
@@ -31,9 +32,9 @@ import anndata
 def read_and_extract(datapath):
   adata = anndata.read(datapath)
   counts = adata.obsm["counts"]
-  geom = adata.obs[["x_orig", "y_orig"]]
+  obs = adata.obs
   markers = adata.uns["counts_var"]
-  return counts, geom, markers
+  return counts, obs, markers
 
 ```
 
@@ -49,7 +50,8 @@ Define standard view composition and run MISTy on all h5ad files for modalities 
     data <- py$read_and_extract(datapath)
     expr <- as.data.frame(as.matrix(data[[1]]))
     colnames(expr) <- make.names(data[[3]])
-    pos <- data[[2]]
+    obs <- data[[2]]
+    pos <- obs %>% select(x_orig, y_orig)
 
     unique(str_extract(rownames(pos), "-\\d$")) %>% walk(function(replicate) {
       output.folder <- paste0(
@@ -58,15 +60,27 @@ Define standard view composition and run MISTy on all h5ad files for modalities 
           "data", "output"
         ), replicate
       )
-      
-      output.folder.failed <- paste0(output.folder,"_failed")
-      
-      if(!(dir.exists(output.folder) | dir.exists(output.folder.failed))){
-        ind <- str_which(rownames(pos), paste0(replicate, "$"))
+
+      output.folder.failed <- paste0(output.folder, "_failed")
+
+      if (!(dir.exists(output.folder) | dir.exists(output.folder.failed))) {
+        replicate.ind <- str_which(rownames(pos), paste0(replicate, "$"))
+
+        # in codex filter cells with outlier sizes (Tukey's interquartile approach)
+        if (str_detect(datapath, "codex")) {
+          sizes <- obs %>% slice(replicate.ind) %>% pull("size")
+          quartiles <- quantile(sizes, c(.25, .75))
+          lower <- quartiles[1] - 1.5 * (quartiles[2] - quartiles[1])
+          upper <- quartiles[2] + 1.5 * (quartiles[2] - quartiles[1])
+          ind <- replicate.ind[which(sizes < upper & sizes > lower)]
+        } else {
+          ind <- replicate.ind
+        }
+
         misty.views <- create_initial_view(expr[ind, ]) %>%
           add_juxtaview(pos[ind, ]) %>%
-          add_paraview(pos[ind, ],100)
-  
+          add_paraview(pos[ind, ], l = 100, zoi = 15)
+
         tryCatch(
           run_misty(misty.views, results.folder = output.folder),
           error = function(e) file.rename(output.folder, output.folder.failed)
