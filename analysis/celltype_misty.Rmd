@@ -45,7 +45,7 @@ Use SlideSeq data. Bypass modeling of intrinsic view and focus on cell type comp
 
 ```{r}
 (list.files("data", ".h5ad", recursive = TRUE, full.names = TRUE) %>%
-  keep(~ str_detect(.x, "slide_seq")))[-4] %>%
+  keep(~ str_detect(.x, "slide_seq"))) %>%
   walk(function(datapath) {
     data <- py$read_and_extract(datapath)
     ctype <- data[[1]] %>% rename_with(~make.names(., allow_ = FALSE))
@@ -67,7 +67,8 @@ Use SlideSeq data. Bypass modeling of intrinsic view and focus on cell type comp
         ind <- str_which(rownames(pos), paste0(replicate, "$"))
 
         misty.views.ctype <- create_initial_view(ctype[ind, ]) %>%
-          add_paraview(pos[ind, ], l = 100, family = "constant")
+          add_juxtaview(pos[ind, ]) %>%
+          add_paraview(pos[ind, ], l = 100, zoi = 15, family = "constant")
 
         tryCatch(
           run_misty(misty.views.ctype, results.folder = output.folder, bypass.intra = TRUE),

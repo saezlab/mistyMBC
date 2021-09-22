@@ -108,7 +108,8 @@ Define and run ligand receptor and ligand pathway oriented mistyR pipelines for 
         ligand.views <- create_initial_view(expr[ind, ] %>%
           select(-names(which(apply(., 2, var) == 0))) %>%
           select(any_of(ligands))) %>%
-          add_paraview(pos[ind, ], 100)
+          add_juxtaview(pos[ind, ]) %>%
+          add_paraview(pos[ind, ], l = 100, zoi = 15)
       }
 
 
@@ -118,7 +119,8 @@ Define and run ligand receptor and ligand pathway oriented mistyR pipelines for 
         misty.views.ligrcp <- create_initial_view(expr[ind, ] %>%
           select(-names(which(apply(., 2, var) == 0))) %>%
           select(any_of(receptors))) %>%
-          add_views(list(ligand.views[["paraview.100"]]))
+          add_views(list(juxtaview.15 = ligand.views[["juxtaview.15"]], 
+                         paraview.100 = ligand.views[["paraview.100"]]))
 
         tryCatch(
           run_misty(misty.views.ligrcp, results.folder = paste0(output.folder, "/ligrcp")),
@@ -136,7 +138,8 @@ Define and run ligand receptor and ligand pathway oriented mistyR pipelines for 
           as_tibble(.name_repair = make.names)
 
         misty.views.ligpath <- create_initial_view(as_tibble(path.activity)) %>%
-          add_views(list(ligand.views[["paraview.100"]]))
+          add_views(list(ligand.views[["juxtaview.15"]], 
+                         ligand.views[["paraview.100"]]))
 
         tryCatch(
           run_misty(misty.views.ligpath, results.folder = paste0(output.folder, "/ligpath")),
