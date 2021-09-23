@@ -15,7 +15,9 @@ Load necessary libraries
 library(stringr)
 library(dplyr)
 library(mistyR)
+library(ggplot2)
 library(future)
+
 
 plan(multisession)        
 ```
@@ -37,6 +39,15 @@ misty.results.merfish <- collect_results(str_subset(outputs, "merfish"))
 misty.results.ligrcp <- collect_results(str_subset(outputs, "ligrcp"))
 misty.results.ligpath <- collect_results(str_subset(outputs, "ligpath"))
 ```
+
+# Get metadata
+
+```{r}
+sample.meta <- read.delim("data/HTAPP_MBC_spatial_annotations.tsv", 
+                          na.strings = "")
+```
+
+
 
 # Plot basic results
 
@@ -73,6 +84,25 @@ misty.results.codex %>%
   plot_interaction_communities("intra", cutoff = 3) %>%
   plot_interaction_communities("juxta.15", cutoff = 1) %>%
   plot_interaction_communities("para.100", cutoff = 1)
+```
+
+Signatures and clustering
+
+```{r}
+signature.per.codex <- misty.results.codex %>% 
+  extract_signature("performance", trim = 1) %>%
+  mutate(sample = str_extract(sample, "HTAPP(-[:alnum:]+){3}"))
+
+signature.per.pca <- signature.per.codex %>% select(-sample) %>% prcomp()
+
+signature.per.pca.ann <- left_join(bind_cols(signature.per.codex %>% select(sample), 
+                                             as.data.frame(signature.per.pca$x)), 
+                                   sample.meta, 
+                                   by = c("sample" = "name"))
+
+ggplot(signature.per.pca.ann, aes(x = PC1, y = PC2)) +
+  geom_point(aes(color = receptors_primary)) +
+  theme_classic()
 ```
 
 
@@ -112,6 +142,26 @@ misty.results.merfish %>%
   plot_interaction_communities("para.100", cutoff = 1.5)
 ```
 
+Signatures and clustering
+
+```{r}
+signature.per.merfish <- misty.results.merfish %>% 
+  extract_signature("performance", trim = 1) %>%
+  mutate(sample = str_extract(sample, "HTAPP(-[:alnum:]+){3}"))
+
+signature.per.pca <- signature.per.merfish %>% select(-sample) %>% prcomp()
+
+signature.per.pca.ann <- left_join(bind_cols(signature.per.merfish %>% select(sample), 
+                                             as.data.frame(signature.per.pca$x)), 
+                                   sample.meta, 
+                                   by = c("sample" = "name"))
+
+ggplot(signature.per.pca.ann, aes(x = PC1, y = PC2)) +
+  geom_point(aes(color = receptors_primary)) +
+  theme_classic()
+```
+
+
 ## Merge CODEX and MERFISH results
 
 Filter only genes with mean gain in variance explained of 1 or more to plot the gain and view contributions
@@ -129,7 +179,6 @@ misty.results.merged %>%
   plot_interaction_heatmap("juxta.15", cutoff = 1.5, clean = TRUE, trim = 1) %>%
   plot_interaction_heatmap("para.100", cutoff = 1, clean = TRUE, trim = 1)
 ```
-
 
 
 ## SlideSeq
@@ -152,10 +201,12 @@ Plot interaction heatmaps
 ```{r}
   misty.results.ligrcp %>%
     plot_interaction_heatmap("intra", cutoff = 5, clean = TRUE) %>%
+    plot_interaction_heatmap("juxta.15", cutoff = 2, clean = TRUE, trim = 0.5) %>%
     plot_interaction_heatmap("para.100", cutoff = 2, clean = TRUE, trim = 0.5)
 
 misty.results.ligpath %>%
     plot_interaction_heatmap("intra", cutoff = 1, clean = TRUE) %>%
+    plot_interaction_heatmap("juxta.15", cutoff = 1.5, clean = TRUE, trim = 1) %>%
     plot_interaction_heatmap("para.100", cutoff = 1.5, clean = TRUE, trim = 1)
 ```
 
@@ -173,15 +224,34 @@ More conservative trimming of above 10% variance explained since the intraview i
 ```{r}
 misty.results.ctype <- collect_results(str_subset(outputs, "ctype"))
 
-misty.results.ctype %>% plot_improvement_stats(trim = 10)
+misty.results.ctype %>% 
+  plot_improvement_stats(trim = 10)
 ```
 
 Plot neighborhood interactions
 
 ```{r}
-misty.results.ctype %>% plot_interaction_heatmap("para.100", trim = 10, 
-                                                 cutoff = 0.5)
-
-misty.results.ctype %>% plot_interaction_communities("para.100", cutoff = 1)
+misty.results.ctype %>% 
+  plot_interaction_heatmap("juxta.15", trim = 10, cutoff = 0.5) %>% 
+  plot_interaction_heatmap("para.100", trim = 10, cutoff = 0.5)
 ```
+
+Plot contrasts
+
+```{r}
+misty.results.ctype %>% 
+  plot_contrast_heatmap("para.100", "juxta.15", trim = 10, cutoff = 0.5) %>%
+  plot_contrast_heatmap("juxta.15", "para.100", trim = 10, cutoff = 0.5)
+```
+
+
+Plot communities
+
+```{r}
+misty.results.ctype %>% 
+  plot_interaction_communities("juxta.15", cutoff = 1) %>%
+  plot_interaction_communities("para.100", cutoff = 1)
+```
+
+
 
