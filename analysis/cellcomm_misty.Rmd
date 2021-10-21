@@ -20,7 +20,7 @@ library(stringr)
 library(progeny)
 
 use_python("/usr/local/bin/python3")
-plan(multisession)
+plan(multisession, workers = 5)
 ```
 
 
@@ -35,9 +35,9 @@ import numpy
 def read_and_extract(datapath):
   adata = anndata.read(datapath)
   ots = adata.obsm["OT"]
-  counts = adata.X
+  counts = adata.obsm["counts"]
   geom = adata.obs[["x_orig", "y_orig"]]
-  markers = adata.var_names.values
+  markers = adata.uns["counts_var"]
   return ots, counts, geom, markers
 
 ```
@@ -78,7 +78,7 @@ receptors <- extract_symbols(op.receptors)
 ```
 
 
-Define and run ligand receptor and ligand pathway oriented mistyR pipelines for MBC cells in SlideSeq data. Relate expression of genes annotated as ligands in the neighborhood of each MBC cell to its intracellular receptor expression or estimated pathway activities.
+Define and run ligand receptor and ligand pathway oriented mistyR pipelinesin SlideSeq data. Relate expression of genes annotated as ligands in the neighborhood of each cell to its intracellular receptor expression or estimated pathway activities.
 
 ```{r}
 # 364 is a tricky sample
@@ -86,11 +86,11 @@ Define and run ligand receptor and ligand pathway oriented mistyR pipelines for 
   keep(~ str_detect(.x, "slide_seq")))[-4] %>%
   walk(function(datapath) {
     data <- py$read_and_extract(datapath)
-    mbs <- which(data[[1]][, which(str_detect(colnames(data[[1]]), "MBC"))] >= 0.9)
-    expr <- as.data.frame((data[[2]])) %>%
-      slice(mbs) %>%
+    counts <- as.matrix(data[[2]])
+    transformed <- log((counts / rowSums(counts)) * 1e5 + 1)
+    expr <- as.data.frame(transformed) %>%
       `colnames<-`(make.names(data[[4]]))
-    pos <- data[[3]] %>% slice(mbs)
+    pos <- data[[3]]
 
     unique(str_extract(rownames(pos), "-\\d$")) %>% walk(function(replicate) {
       output.folder <- paste0(
@@ -105,22 +105,29 @@ Define and run ligand receptor and ligand pathway oriented mistyR pipelines for 
       ind <- str_which(rownames(pos), paste0(replicate, "$"))
 
       if (length(list.files(output.folder)) < 2) {
-        ligand.views <- create_initial_view(expr[ind, ] %>%
-          select(-names(which(apply(., 2, var) == 0))) %>%
-          select(any_of(ligands))) %>%
-          add_juxtaview(pos[ind, ]) %>%
-          add_paraview(pos[ind, ], l = 100, zoi = 15)
+        ligand.views <- create_initial_view(expr[ind, ]) %>%
+          select_markers(
+            "intraview",
+            where(\(x) sd(x) > 0) &
+              any_of(ligands)
+          ) %>%
+          add_juxtaview(pos[ind, ], neighbor.thr = 25) %>%
+          add_paraview(pos[ind, ], l = 150, zoi = 25)
       }
 
 
       if (!(dir.exists(paste0(output.folder, "/ligrcp")) |
         dir.exists(paste0(output.folder, "/ligrcp_failed")))) {
-        
-        misty.views.ligrcp <- create_initial_view(expr[ind, ] %>%
-          select(-names(which(apply(., 2, var) == 0))) %>%
-          select(any_of(receptors))) %>%
-          add_views(list(juxtaview.15 = ligand.views[["juxtaview.15"]], 
-                         paraview.100 = ligand.views[["paraview.100"]]))
+        misty.views.ligrcp <- create_initial_view(expr[ind, ]) %>%
+          select_markers(
+            "intraview",
+            where(\(x) length(unique(x)) >= 10) &
+              any_of(receptors)
+          ) %>%
+          add_views(list(
+            juxtaview.25 = ligand.views[["juxtaview.25"]],
+            paraview.150 = ligand.views[["paraview.150"]]
+          ))
 
         tryCatch(
           run_misty(misty.views.ligrcp, results.folder = paste0(output.folder, "/ligrcp")),
@@ -134,12 +141,19 @@ Define and run ligand receptor and ligand pathway oriented mistyR pipelines for 
       }
       if (!(dir.exists(paste0(output.folder, "/ligpath")) |
         dir.exists(paste0(output.folder, "/ligpath_failed")))) {
-        path.activity <- progeny(expr = t(expr[ind, ]), top = 500, scale = TRUE) %>%
-          as_tibble(.name_repair = make.names)
+        path.activity <- progeny(expr = t(expr[ind, ]) %>% `rownames<-`(data[[4]]), 
+                                 top = 500, scale = TRUE) %>%
+          data.frame()
 
-        misty.views.ligpath <- create_initial_view(as_tibble(path.activity)) %>%
-          add_views(list(ligand.views[["juxtaview.15"]], 
-                         ligand.views[["paraview.100"]]))
+        misty.views.ligpath <- create_initial_view(path.activity) %>%
+          select_markers(
+            "intraview",
+            where(\(x) length(unique(x)) >= 10)
+          ) %>%
+          add_views(list(
+            juxtaview.25 = ligand.views[["juxtaview.25"]],
+            paraview.150 = ligand.views[["paraview.150"]]
+          ))
 
         tryCatch(
           run_misty(misty.views.ligpath, results.folder = paste0(output.folder, "/ligpath")),

@@ -45,10 +45,18 @@ Define standard view composition and run MISTy on all h5ad files for modalities 
 
 ```{r run_misty}
 (list.files("data", ".h5ad", recursive = TRUE, full.names = TRUE) %>%
-  keep(~ str_detect(.x, "(codex|merfish|exseq)_processed"))) %>%
+  keep(~ str_detect(.x, "(codex|merfish)"))) %>%
   walk(function(datapath) {
     data <- py$read_and_extract(datapath)
-    expr <- as.data.frame(as.matrix(data[[1]]))
+    
+    if (str_detect(datapath, "codex")) {
+      transformed <- asinh(as.matrix(data[[1]]))
+    } else {
+      counts  <- as.matrix(data[[1]])
+      transformed <- log((counts/rowSums(counts))*1e5 + 1)
+    }
+    
+    expr <- as.data.frame(transformed)
     colnames(expr) <- make.names(data[[3]])
     obs <- data[[2]]
     pos <- obs %>% select(x_orig, y_orig)
@@ -68,7 +76,9 @@ Define standard view composition and run MISTy on all h5ad files for modalities 
 
         # in codex filter cells with outlier sizes (Tukey's interquartile approach)
         if (str_detect(datapath, "codex")) {
-          sizes <- obs %>% slice(replicate.ind) %>% pull("size")
+          sizes <- obs %>%
+            slice(replicate.ind) %>%
+            pull("size")
           quartiles <- quantile(sizes, c(.25, .75))
           lower <- quartiles[1] - 1.5 * (quartiles[2] - quartiles[1])
           upper <- quartiles[2] + 1.5 * (quartiles[2] - quartiles[1])
