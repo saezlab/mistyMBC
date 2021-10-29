@@ -1,8 +1,0 @@
-target,imp
-Endothelial.angiogenic,4.5404089251514685
-Endothelial.vascular,4.639336000427176
-Fibroblast,4.442209723203282
-MBC.neuronal,4.360008092498272
-Macrophage,4.581223729815444
-NK,4.880886670140347
-Smooth.muscle.vascular,4.4748041190239345

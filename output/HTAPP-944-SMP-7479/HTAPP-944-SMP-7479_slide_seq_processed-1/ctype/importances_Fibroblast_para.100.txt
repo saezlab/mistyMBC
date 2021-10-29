@@ -1,8 +1,0 @@
-target,imp
-Endothelial.angiogenic,16.867018549387552
-Endothelial.vascular,16.39697700247213
-MBC.neuronal,16.85580442791669
-Macrophage,16.482187733780552
-Monocyte,16.227990241830266
-NK,18.22750336209377
-Smooth.muscle.vascular,16.48067652957202
