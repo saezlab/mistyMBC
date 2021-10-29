@@ -5,14 +5,22 @@ navbar:
   left:
   - text: Home
     href: index.html
-  - text: About
-    href: about.html
+  - text: Pipelines
+    menu:
+      - text: Simple MISTy
+        href: simple_misty.html
+      - text: Cellcomm MISTy
+        href: cellcomm_misty.html
+      - text: Celltype MISTy
+        href: celltype_misty.html
+  - text: Results
+    href: browse_results.html
+  right:
   - text: License
     href: license.html
-  right:
   - icon: fa-github
     text: Source code
-    href: https://github.com/saezlab/mistyTNBC
+    href: https://github.com/saezlab/mistyMBC
 output:
   workflowr::wflow_html:
     toc: yes
