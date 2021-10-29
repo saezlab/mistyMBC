@@ -104,7 +104,7 @@ Define and run ligand receptor and ligand pathway oriented mistyR pipelinesin Sl
 
       ind <- str_which(rownames(pos), paste0(replicate, "$"))
 
-      if (length(list.files(output.folder)) < 2) {
+      if (length(list.files(output.folder)) < 3) {
         ligand.views <- create_initial_view(expr[ind, ]) %>%
           select_markers(
             "intraview",
