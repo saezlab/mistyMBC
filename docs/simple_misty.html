@@ -11,7 +11,7 @@
 
 <meta name="author" content="Jovan Tanevski" />
 
-<meta name="date" content="2021-09-23" />
+<meta name="date" content="2021-10-29" />
 
 <title>simple_misty</title>
 
@@ -334,16 +334,34 @@ div.tocify {
         <li>
   <a href="index.html">Home</a>
 </li>
-<li>
-  <a href="about.html">About</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Pipelines
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="simple_misty.html">Simple MISTy</a>
+    </li>
+    <li>
+      <a href="cellcomm_misty.html">Cellcomm MISTy</a>
+    </li>
+    <li>
+      <a href="celltype_misty.html">Celltype MISTy</a>
+    </li>
+  </ul>
 </li>
 <li>
-  <a href="license.html">License</a>
+  <a href="browse_results.html">Results</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/saezlab/mistyTNBC">
+  <a href="license.html">License</a>
+</li>
+<li>
+  <a href="https://github.com/saezlab/mistyMBC">
     <span class="fa fa-github"></span>
      
     Source code
@@ -360,7 +378,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">simple_misty</h1>
 <h4 class="author">Jovan Tanevski</h4>
-<h4 class="date">2021-09-23</h4>
+<h4 class="date">2021-10-29</h4>
 
 </div>
 
@@ -385,7 +403,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-09-23
+<strong>Last updated:</strong> 2021-10-29
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -476,16 +494,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsaezlabmistyMBCtree02a4d8fc5bfebba5a4336a0c6bf7b94a86f45d92targetblank02a4d8fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/saezlab/mistyMBC/tree/02a4d8fc5bfebba5a4336a0c6bf7b94a86f45d92" target="_blank">02a4d8f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsaezlabmistyMBCtree9d7cf8fa124fd1d7cbe212e8fdb921aea44796c2targetblank9d7cf8fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/saezlab/mistyMBC/tree/9d7cf8fa124fd1d7cbe212e8fdb921aea44796c2" target="_blank">9d7cf8f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomsaezlabmistyMBCtree02a4d8fc5bfebba5a4336a0c6bf7b94a86f45d92targetblank02a4d8fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomsaezlabmistyMBCtree9d7cf8fa124fd1d7cbe212e8fdb921aea44796c2targetblank9d7cf8fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/saezlab/mistyMBC/tree/02a4d8fc5bfebba5a4336a0c6bf7b94a86f45d92" target="_blank">02a4d8f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/saezlab/mistyMBC/tree/9d7cf8fa124fd1d7cbe212e8fdb921aea44796c2" target="_blank">9d7cf8f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -496,12 +514,15 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
-    Ignored:    analysis/.Rhistory
     Ignored:    code/
     Ignored:    data/
     Ignored:    omnipathr-log/
     Ignored:    output/.DS_Store
-    Ignored:    output/HTAPP-364-SMP-1321/.DS_Store
+    Ignored:    output/HTAPP-213-SMP-6752/.DS_Store
+    Ignored:    output/HTAPP-213-SMP-6752/HTAPP-213-SMP-6752_slide_seq_processed-1/.DS_Store
+
+Untracked files:
+    Untracked:  output/HTAPP-364-SMP-1321/
 
 </code></pre>
 <p>
@@ -540,6 +561,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/saezlab/mistyMBC/blob/6b773b6b023f098f6c8ad759b5a5e4d4e065380d/analysis/simple_misty.Rmd" target="_blank">6b773b6</a>
+</td>
+<td>
+Jovan Tanevski
+</td>
+<td>
+2021-10-24
+</td>
+<td>
+update normalization and view parameteres
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/saezlab/mistyMBC/cb33a3ecacb457f940c28217ab4be0ae9f3b853e/docs/simple_misty.html" target="_blank">cb33a3e</a>
+</td>
+<td>
+Jovan Tanevski
+</td>
+<td>
+2021-09-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -898,10 +953,18 @@ def read_and_extract(datapath):
 <h1>Run misty</h1>
 <p>Define standard view composition and run MISTy on all h5ad files for modalities CODEX, MERFISH and ExSeq.</p>
 <pre class="r"><code>(list.files(&quot;data&quot;, &quot;.h5ad&quot;, recursive = TRUE, full.names = TRUE) %&gt;%
-  keep(~ str_detect(.x, &quot;(codex|merfish|exseq)_processed&quot;))) %&gt;%
+  keep(~ str_detect(.x, &quot;(codex|merfish)&quot;))) %&gt;%
   walk(function(datapath) {
     data &lt;- py$read_and_extract(datapath)
-    expr &lt;- as.data.frame(as.matrix(data[[1]]))
+    
+    if (str_detect(datapath, &quot;codex&quot;)) {
+      transformed &lt;- asinh(as.matrix(data[[1]]))
+    } else {
+      counts  &lt;- as.matrix(data[[1]])
+      transformed &lt;- log((counts/rowSums(counts))*1e5 + 1)
+    }
+    
+    expr &lt;- as.data.frame(transformed)
     colnames(expr) &lt;- make.names(data[[3]])
     obs &lt;- data[[2]]
     pos &lt;- obs %&gt;% select(x_orig, y_orig)
@@ -921,7 +984,9 @@ def read_and_extract(datapath):
 
         # in codex filter cells with outlier sizes (Tukey&#39;s interquartile approach)
         if (str_detect(datapath, &quot;codex&quot;)) {
-          sizes &lt;- obs %&gt;% slice(replicate.ind) %&gt;% pull(&quot;size&quot;)
+          sizes &lt;- obs %&gt;%
+            slice(replicate.ind) %&gt;%
+            pull(&quot;size&quot;)
           quartiles &lt;- quantile(sizes, c(.25, .75))
           lower &lt;- quartiles[1] - 1.5 * (quartiles[2] - quartiles[1])
           upper &lt;- quartiles[2] + 1.5 * (quartiles[2] - quartiles[1])
@@ -941,6 +1006,12 @@ def read_and_extract(datapath):
       }
     })
   })</code></pre>
+<pre><code>
+Computing triangulation</code></pre>
+<pre><code>
+Generating juxtaview</code></pre>
+<pre><code>
+Generating paraview</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -965,22 +1036,24 @@ attached base packages:
 
 other attached packages:
 [1] stringr_1.4.0   purrr_0.3.4     dplyr_1.0.7     future_1.22.1  
-[5] mistyR_1.1.9    reticulate_1.22 workflowr_1.6.2
+[5] mistyR_1.1.14   reticulate_1.22 workflowr_1.6.2
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.7        pillar_1.6.2      compiler_4.1.1    bslib_0.3.0      
- [5] later_1.3.0       jquerylib_0.1.4   git2r_0.28.0      tools_4.1.1      
- [9] digest_0.6.27     lattice_0.20-45   jsonlite_1.7.2    evaluate_0.14    
-[13] lifecycle_1.0.0   tibble_3.1.4      png_0.1-7         pkgconfig_2.0.3  
-[17] rlang_0.4.11      Matrix_1.3-4      DBI_1.1.1         parallel_4.1.1   
-[21] yaml_2.2.1        xfun_0.26         fastmap_1.1.0     knitr_1.34       
-[25] globals_0.14.0    generics_0.1.0    fs_1.5.0          vctrs_0.3.8      
-[29] sass_0.4.0        tidyselect_1.1.1  rprojroot_2.0.2   grid_4.1.1       
-[33] here_1.0.1        glue_1.4.2        listenv_0.8.0     R6_2.5.1         
-[37] parallelly_1.28.1 fansi_0.5.0       rmarkdown_2.11    magrittr_2.0.1   
-[41] whisker_0.4       codetools_0.2-18  promises_1.2.0.1  ellipsis_0.3.2   
-[45] htmltools_0.5.2   assertthat_0.2.1  httpuv_1.6.3      utf8_1.2.2       
-[49] stringi_1.7.4     crayon_1.4.1     </code></pre>
+ [1] tidyselect_1.1.1  xfun_0.27         bslib_0.3.1       listenv_0.8.0    
+ [5] distances_0.1.8   lattice_0.20-45   vctrs_0.3.8       generics_0.1.1   
+ [9] htmltools_0.5.2   yaml_2.2.1        utf8_1.2.2        rlang_0.4.12     
+[13] R.oo_1.24.0       jquerylib_0.1.4   later_1.3.0       pillar_1.6.4     
+[17] glue_1.4.2        DBI_1.1.1         R.utils_2.11.0    lifecycle_1.0.1  
+[21] R.methodsS3_1.8.1 codetools_0.2-18  evaluate_0.14     knitr_1.36       
+[25] fastmap_1.1.0     httpuv_1.6.3      parallel_4.1.1    fansi_0.5.0      
+[29] furrr_0.2.3       Rcpp_1.0.7        promises_1.2.0.1  jsonlite_1.7.2   
+[33] deldir_1.0-6      parallelly_1.28.1 fs_1.5.0          png_0.1-7        
+[37] digest_0.6.28     stringi_1.7.5     rlist_0.4.6.2     grid_4.1.1       
+[41] rprojroot_2.0.2   tools_4.1.1       magrittr_2.0.1    sass_0.4.0       
+[45] tibble_3.1.5      crayon_1.4.1      whisker_0.4       pkgconfig_2.0.3  
+[49] ellipsis_0.3.2    Matrix_1.3-4      data.table_1.14.2 assertthat_0.2.1 
+[53] rmarkdown_2.11    R6_2.5.1          globals_0.14.0    git2r_0.28.0     
+[57] compiler_4.1.1   </code></pre>
 </div>
 </div>
 
