@@ -123,6 +123,37 @@ fviz_pca_var(signature.per.pca, col.var = "cos2", gradient.cols = c("#666666", "
 ```
 
 
+Compare samples from liver biopsies to all other
+```{r}
+codex.liver <- str_subset(outputs, "codex") %>% 
+  str_subset(sample.meta %>% 
+               filter(site_biopsy == "Liver") %>% 
+               pull(name) %>% 
+               str_extract("\\d+$") %>% 
+               paste0(.,collapse = "|"))
+
+codex.other <- str_subset(outputs, "codex") %>% 
+  str_subset(sample.meta %>% 
+               filter(site_biopsy != "Liver") %>% 
+               pull(name) %>% 
+               str_extract("\\d+$") %>% 
+               paste0(.,collapse = "|"))
+
+results.codex.liver <- collect_results(codex.liver)
+results.codex.other <- collect_results(codex.other)
+
+
+results.codex.liver %>% plot_improvement_stats(trim = 0.5)
+results.codex.other %>% plot_improvement_stats(trim = 0.5)
+```
+
+Liver specific interactions
+```{r}
+plot_contrast_results(results.codex.liver, results.codex.other, trim = 0.5)
+```
+
+
+
 ## MERFISH
 
 We combine the information from binned and unbinned samples.
@@ -220,6 +251,38 @@ ggplot(signature.per.pca.ann, aes(x = PC1, y = PC2)) +
 
 fviz_pca_var(signature.per.pca, col.var = "cos2", gradient.cols = c("#666666", "#377EB8", "#E41A1C"), repel = TRUE) + theme_classic()
 ```
+
+Compare samples from liver biopsies to all other
+```{r}
+merfish.liver <- str_subset(outputs, "merfish") %>% 
+  str_subset(sample.meta %>% 
+               filter(site_biopsy == "Liver") %>% 
+               pull(name) %>% 
+               str_extract("\\d+$") %>% 
+               paste0(.,collapse = "|"))
+
+merfish.other <- str_subset(outputs, "merfish") %>% 
+  str_subset(sample.meta %>% 
+               filter(site_biopsy != "Liver") %>% 
+               pull(name) %>% 
+               str_extract("\\d+$") %>% 
+               paste0(.,collapse = "|"))
+
+results.merfish.liver <- collect_results(merfish.liver)
+results.merfish.other <- collect_results(merfish.other)
+
+
+results.merfish.liver %>% plot_improvement_stats(trim = 2)
+results.merfish.other %>% plot_improvement_stats(trim = 2)
+```
+
+Liver specific interactions
+```{r}
+plot_contrast_results(results.merfish.liver, results.merfish.other, 
+                      cutoff.from = 2, cutoff.to = 2, trim = 2)
+```
+
+
 
 
 ## Merge CODEX and MERFISH results
