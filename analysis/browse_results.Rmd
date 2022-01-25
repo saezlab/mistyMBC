@@ -283,8 +283,6 @@ plot_contrast_results(results.merfish.liver, results.merfish.other,
 ```
 
 
-
-
 ## Merge CODEX and MERFISH results
 
 Filter only genes with mean gain in variance explained of 1 or more to plot the gain and view contributions
